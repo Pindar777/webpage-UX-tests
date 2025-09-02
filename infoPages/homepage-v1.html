@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jane Doe - Professional Profile</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* CSS Variables for theming */
+        :root {
+            --background-color: #f4f7f6;
+            --card-background-color: #ffffff;
+            --text-color: #222222;
+            --primary-color: #0056b3;
+            --muted-text-color: #6c757d;
+            --border-color: #e9ecef;
+            --hover-color: #f8f9fa;
+        }
+
+        body.dark-theme {
+            --background-color: #121212;
+            --card-background-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #4dabf7;
+            --muted-text-color: #a0a0a0;
+            --border-color: #333333;
+            --hover-color: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .card {
+            background-color: var(--card-background-color);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 1s ease-in-out;
+            padding: 30px 40px;
+            position: relative;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--muted-text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        #theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-picture {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid var(--border-color);
+        }
+
+        .profile-info {
+            text-align: left;
+        }
+
+        .profile-name {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .profile-tagline {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .topic-section {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .topic-item a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .topic-item a:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            border-color: var(--border-color);
+        }
+
+        .topic-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .topic-text h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .topic-text p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        .contact-details {
+            text-align: left;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: var(--muted-text-color);
+        }
+        
+        .contact-detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-icon {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+            margin-top: 5px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .detail-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .contact-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+        }
+        
+        body.dark-theme .contact-button:hover {
+             background-color: #64b5f6;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--muted-text-color);
+        }
+
+        .footer-links a {
+            color: var(--muted-text-color);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <button id="theme-toggle" title="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <div class="profile-header">
+            <img src="https://placehold.co/150x150/EFEFEF/333333?text=JD" alt="Dr. Jane Doe" class="profile-picture">
+            <div class="profile-info">
+                <h1 class="profile-name">Dr. Jane Doe</h1>
+                <p class="profile-tagline">Consultant for Digital Strategy</p>
+            </div>
+        </div>
+
+        <ul class="topic-section">
+            <li class="topic-item">
+                <a href="#">
+                    <i class="fas fa-chart-line topic-icon"></i>
+                    <div class="topic-text text-start">
+                        <h3>Market Analysis</h3>
+                        <p>In-depth research, competitive landscaping, and data-driven insights to guide strategic decision-making.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="topic-item">
+                <a href="#">
+                    <i class="fas fa-balance-scale topic-icon"></i>
+                    <div class="topic-text text-start">
+                        <h3>Regulatory Compliance</h3>
+                        <p>Expert guidance on navigating complex legal frameworks, ensuring your operations remain fully compliant and risk-averse.</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <div class="contact-details">
+            <div class="contact-detail-item">
+                <i class="fas fa-map-marker-alt detail-icon"></i>
+                <div class="detail-text">
+                    <strong>Office Location</strong><br>
+                    Musterstraße 123, 10117 Berlin
+                </div>
+            </div>
+            <div class="contact-detail-item">
+                <i class="fas fa-clock detail-icon"></i>
+                <div class="detail-text">
+                    <strong>Opening Hours</strong><br>
+                    Mon - Fri: 09:00 - 18:00
+                </div>
+            </div>
+        </div>
+
+        <a href="mailto:jane.doe@example.com" class="contact-button">Contact Me</a>
+        
+        <div class="footer-links">
+            &copy; 2025 Dr. Jane Doe | <a href="#">Impressum</a>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const toggleIcon = themeToggle.querySelector('i');
+
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                toggleIcon.classList.remove('fa-moon');
+                toggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-theme');
+                toggleIcon.classList.remove('fa-sun');
+                toggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Event listener for the toggle button
+        themeToggle.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-theme');
+            setTheme(isDark ? 'light' : 'dark');
+        });
+
+        // Check for saved theme in localStorage on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        });
+    </script>
+
+</body>
+</html>
+
